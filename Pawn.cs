@@ -1,4 +1,10 @@
-﻿using System;
+﻿/*
+ * FileName: Pawn.cs
+ * Author: Bill Golembieski
+ * Initial Implementation: 05/27/2015
+ */
+
+using System;
 
 namespace Chess.Domain
 {
@@ -41,22 +47,76 @@ namespace Chess.Domain
 
         public void Move(MovementType movementType, int newX, int newY)
         {
-            int yDiff = YCoordinate - newY;
-            int xDiff = XCoordinate - newX;
+            // Precondition: A move type, newX and newY values are taken as input.
+            // PostCondition: If a valid move is made, the pawn will move to that location, otherwise
+            // nothing will happen.
 
-            if (movementType == MovementType.Move)
+            // Library Facilities used: System (if Capture is implemented)
+
+            // Black Pawn Movement
+            if (PieceColor == PieceColor.Black)
             {
-                if (Math.Abs(yDiff) < 2)
+                if (movementType == MovementType.Move)
                 {
-                    if (Math.Abs(xDiff) < 2)
+                    if (YCoordinate - newY == 1)
                     {
-                        YCoordinate = newY;
-                        XCoordinate = newX;
+                        if (XCoordinate - newX == 0)
+                        {
+                            YCoordinate = newY;
+                        }
                     }
                 }
+                /*
+                // Black Non-Tested Capture Movement. 
+                // Assuming Pawn.Move() is not called to capture outside of Chessboard Bounds.
+                else if (movementType == MovementType.Capture)
+                {
+                    if ((YCoordinate - newY) == 1)
+                    {
+                        if (Math.Abs(XCoordinate - newX) == 1)
+                        {
+                            XCoordinate = newX;
+                            YCoordinate = newY;
+                        }
+                        // else { TryAgain("Error Code: 110 X move capture Error"); }
+                    }
+                    // else { TryAgain("Error Code: 111 Y move capture Error"); }
+                }
+                */
             }
+            // White Pawn Movement
+            else if(PieceColor == PieceColor.White)
+            {
+                if (movementType == MovementType.Move)
+                {
+                    if (newY - YCoordinate == 1)
+                    {
+                        if (XCoordinate - newX == 0)
+                        {
+                            YCoordinate = newY;
+                        }
+                    }
+                }
+                /*
+                // White Non-Tested Capture Movement. 
+                // Assuming Pawn.Move() is not called to capture outside of Chessboard Bounds.
+                else if (movementType == MovementType.Capture)
+                {
+                    if ((newY - YCoordinate) == 1)
+                    {
+                        if (Math.Abs(XCoordinate - newX) == 1)
+                        {
+                            XCoordinate = newX;
+                            YCoordinate = newY;
+                        }
+                        // else { TryAgain("Error Code: 110 X move capture Error"); }
+                    }
+                    // else { TryAgain("Error Code: 111 Y move capture Error"); }
+                }
+                 */
             }
-
+            // else { TryAgain("Error Code: 120 Piece Color undefined"); }
+         }
 
         public override string ToString()
         {
