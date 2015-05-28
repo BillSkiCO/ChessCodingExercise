@@ -21,36 +21,42 @@ namespace Chess.Domain
         }
 
 
-        /* Pre-Condition: Intake of Pawn Object, 2 integers (x,y coordinates), Enum Piececolor (black or white)
-         * Post-Condition:  Pawn Object with input generated (x,y) coordinates and color */
+        /* Pre-Condition: Intake of Pawn Object, 2 integers (x,y coordinates) and Enum Piececolor (black or white).
+         * Post-Condition:  Pawn Object with input generated (x,y) coordinates and color. */
         public void Add(Pawn pawn, int xCoordinate, int yCoordinate, PieceColor pieceColor)
         {
-            pawn.XCoordinate = xCoordinate;     //Set _xCoordinate in Pawn class
-            pawn.YCoordinate = yCoordinate;     //Set _yCoordinate in Pawn class
-            pawn = new Pawn(pieceColor);        //Set _pieceColor using mutator Pawn() in Pawn class
+            // Set _xCoordinate in Pawn.
+            pawn.XCoordinate = xCoordinate;
+ 
+            // Set _yCoordinate in Pawn.
+            pawn.YCoordinate = yCoordinate;
 
-            
+            // Set _pieceColor using mutator Pawn() in Pawn.
+            pawn = new Pawn(pieceColor);        
+
         }
 
-        /* Pre-Condition: Intake of 2 integers
-         * Post-Condition: Returns True or False based on (x ,y) Coordinates in comparison to MaxBoardWidth and MaxBoardHeight*/
+        /* Pre-Condition: Intake of 2 integers (x,y) coordinates.
+         * Post-Condition: Returns True or False based on (x ,y) Coordinates in comparison to MaxBoardWidth and MaxBoardHeight.*/
         public bool IsLegalBoardPosition(int xCoordinate, int yCoordinate)
         {
-            if(xCoordinate >= 0 && yCoordinate >= 0){       //Non-zero test
-                if ((MaxBoardHeight >= yCoordinate)){       //yCoordinate Test
-                    if ((MaxBoardWidth >= xCoordinate)){    //xCoordinate Test
+            // Non-Zero Test, y bound and then x bound.
+            if(xCoordinate >= 0 && yCoordinate >= 0)
+            {       
+                if ((MaxBoardHeight >= yCoordinate))
+                {       
+                    if ((MaxBoardWidth >= xCoordinate))
+                    {    
                         return true;
                     }
                     else
-                        return false;                       //xCoordinate Test Fail
+                        return false;                       
                 }
                 else
-                    return false;                           //yCoordinate Test Fail
+                    return false;                           
             }
             else
-                return false;                               //Non-Zero Test Fail
-            
+                return false;                               
         }
-
     }
 }
